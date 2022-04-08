@@ -677,7 +677,7 @@ function invertObj2(obj) {
     }
     return reversed
 }
-invertObj2(obj3);
+console.log(invertObj2(obj3));
 
 //OG solution
 // function invertObj(obj) {
