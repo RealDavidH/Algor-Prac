@@ -675,7 +675,7 @@ function invertObj2(obj) {
     for (key in obj) {
         reversed[obj[key]] = key;
     }
-    console.log(reversed);
+    return reversed
 }
 invertObj2(obj3);
 
