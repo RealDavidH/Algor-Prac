@@ -784,10 +784,10 @@ const two_nums4 = [5, 2, 6, 2, 3, 1, 6, 3, 2, 5, 2];
 const two_expected4 = 1;
 
 function oddOccurrencesInArray(nums) {
-    let number = checker(nums)
-    return number
+    let number = checker(nums);
+    return number;
 }
-function checker(nums){
+function checker(nums) {
     let newdict = {};
     for (let i = 0; i < nums.length; i++) {
         let count = 0;
@@ -798,8 +798,8 @@ function checker(nums){
             }
         }
         newdict[temp] = count;
-        if (newdict[temp] % 2 == 1){
-            return temp
+        if (newdict[temp] % 2 == 1) {
+            return temp;
         }
     }
     return newdict;
@@ -809,4 +809,138 @@ console.log(oddOccurrencesInArray(two_nums2));
 console.log(oddOccurrencesInArray(two_nums3));
 console.log(oddOccurrencesInArray(two_nums4));
 
+//w2d2
 
+/* 
+  Given a string containing space separated words
+  Reverse each word in the string.
+  If you need to, use your own .split to start, then try to do it without.
+*/
+
+const str1 = "hello";
+const expected1 = "olleh";
+
+const str2 = "hello world";
+const expected2 = "olleh dlrow";
+
+const str3 = "abc def ghi";
+const expected3 = "cba fed ihg";
+
+function reverseWords(str) {
+    let holder = "";
+    let tempstr = "";
+    let spacer = " ";
+    for (let i = 0; i < str.length + 1; i++) {
+        if (str[i] != " " && i != str.length) {
+            tempstr += str[i];
+        } else if (str[i] == " ") {
+            holder += reverse(tempstr);
+            holder += spacer;
+            tempstr = "";
+        } else {
+            holder += reverse(tempstr);
+            tempstr = "";
+        }
+    }
+    return holder;
+}
+
+function reverse(str) {
+    let j = str.length - 1;
+    let tempstr1 = "";
+    for (let i = 0; i < str.length; i++) {
+        let temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+        tempstr1 += str[j];
+        j--;
+    }
+    return tempstr1;
+}
+
+console.log(reverseWords(str1));
+console.log(reverseWords(str2));
+console.log(reverseWords(str3));
+/**
+ * Reverses the letters in each words in the given space separated
+ * string of words. Does NOT reverse the order of the words themselves.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {string} str Contains space separated words.
+ * @returns {string} The given string with each word's letters reversed.
+ */
+
+// *****************************************
+
+/* 
+  Reverse Word Order
+  Given a string of words (with spaces)
+  return a new string with words in reverse sequence.
+*/
+
+const two_str1 = "This is a test";
+const two_expected1 = "test a is This";
+
+const two_str2 = "hello";
+const two_expected2 = "hello";
+
+const two_str3 = "   This  is a   test  ";
+const two_expected3 = "test a is This";
+
+/**
+ * Reverses the order of the words but not the words themselves form the given
+ * string of space separated words.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {string} wordsStr A string containing space separated words.
+ * @returns {string} The given string with the word order reversed but the words
+ *    themselves are not reversed.
+ */
+function reverseWordOrder(wordsStr) {
+    let output = "";
+    let tempstr = "";
+    let spacer = " ";
+    let arr = [];
+    for (let i = 0; i < wordsStr.length + 1; i++) {
+        if (i == wordsStr.length) {
+            arr.push(tempstr);
+            break;
+        }
+        if (wordsStr[i] != " ") {
+            tempstr += wordsStr[i];
+        } else if (wordsStr[i] == " ") {
+            arr.push(tempstr);
+            tempstr = "";
+        } else {
+            arr.push(tempstr);
+            tempstr = "";
+        }
+    }
+    arr = reversingArr(arr);
+    for (let j = 0; j < arr.length; j++) {
+        if (j == arr.length - 1) {
+            if (arr[j] != "") {
+                output += arr[j];
+            }
+        } else {
+            if (arr[j] != "") {
+                output += arr[j] + spacer;
+            }
+        }
+    }
+    return output;
+}
+function reversingArr(arr) {
+    let j = arr.length - 1;
+    for (let i = 0; i < arr.length / 2; i++) {
+        let temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+        j--;
+    }
+    return arr;
+}
+
+console.log(reverseWordOrder(two_str1));
+console.log(reverseWordOrder(two_str2));
+console.log(reverseWordOrder(two_str3));
