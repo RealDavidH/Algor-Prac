@@ -988,35 +988,35 @@ to the original position.
  */
 
 function rotateStr(string, amnt) {
-    if (amnt == 0){
+    if (amnt == 0) {
         return string;
     }
-    if(amnt > string.length){
-        amnt -= string.length
+    if (amnt > string.length) {
+        amnt -= string.length;
     }
     let tempstr = "";
-    let newstr = ""
-    for(let i = 0; i <= amnt; i++){
-        tempstr += string.charAt(string.length-i-1);
+    let newstr = "";
+    for (let i = 0; i <= amnt; i++) {
+        tempstr += string.charAt(string.length - i - 1);
     }
-    newstr += tempstr
-    for(let j = 0; j < string.length; j++){
-        if(newstr.length < string.length){
-            newstr += string.charAt(j)
+    newstr += tempstr;
+    for (let j = 0; j < string.length; j++) {
+        if (newstr.length < string.length) {
+            newstr += string.charAt(j);
         } else {
             return newstr;
         }
     }
 }
-console.log(rotateStr("ABCD", 1))
-console.log(rotateStr("DABC", 1))
-console.log(rotateStr("CDAB", 1))
-console.log(rotateStr("BCDA", 1))
-console.log(rotateStr(str, rotateAmnt1))
-console.log(rotateStr(str, rotateAmnt2))
-console.log(rotateStr(str, rotateAmnt3))
-console.log(rotateStr(str, rotateAmnt4))
-console.log(rotateStr(str, rotateAmnt5))
+console.log(rotateStr("ABCD", 1));
+console.log(rotateStr("DABC", 1));
+console.log(rotateStr("CDAB", 1));
+console.log(rotateStr("BCDA", 1));
+console.log(rotateStr(str, rotateAmnt1));
+console.log(rotateStr(str, rotateAmnt2));
+console.log(rotateStr(str, rotateAmnt3));
+console.log(rotateStr(str, rotateAmnt4));
+console.log(rotateStr(str, rotateAmnt5));
 
 /* 
   Create the function isRotation(str1,str2) that
@@ -1049,41 +1049,190 @@ const two_expected3 = false;
  * @returns {boolean} Whether the second string is a rotated version of the 1st.
  */
 function isRotation(s1, s2) {
-    if(s1.length != s2.length){
-        return false
+    if (s1.length != s2.length) {
+        return false;
     }
     let temstr = "";
-    for(let i = 0; i <= s1.length; i++){
-        temstr = rotateStr(s2, 1)
-        s2 = temstr
-        if(s2 == s1){
-            return true
-        } 
+    for (let i = 0; i <= s1.length; i++) {
+        temstr = rotateStr(s2, 1);
+        s2 = temstr;
+        if (s2 == s1) {
+            return true;
+        }
     }
     return false;
 }
 
 function rotateStr(string, amnt) {
-    if (amnt == 0){
+    if (amnt == 0) {
         return string;
     }
-    if(amnt > string.length){
-        amnt -= string.length
+    if (amnt > string.length) {
+        amnt -= string.length;
     }
     let tempstr = "";
-    let newstr = ""
-    for(let i = 0; i < amnt; i++){
-        tempstr += string.charAt(string.length-1);
+    let newstr = "";
+    for (let i = 0; i < amnt; i++) {
+        tempstr += string.charAt(string.length - 1);
     }
-    newstr += tempstr
-    for(let j = 0; j < string.length; j++){
-        if(newstr.length < string.length){
-            newstr += string.charAt(j)
+    newstr += tempstr;
+    for (let j = 0; j < string.length; j++) {
+        if (newstr.length < string.length) {
+            newstr += string.charAt(j);
         } else {
             return newstr;
         }
     }
 }
-console.log(isRotation(two_strA1, two_strB1))
-console.log(isRotation(two_strA2, two_strB2))
-console.log(isRotation(two_strA3, two_strB3))
+console.log(isRotation(two_strA1, two_strB1));
+console.log(isRotation(two_strA2, two_strB2));
+console.log(isRotation(two_strA3, two_strB3));
+
+/* 
+Parens Valid
+Given an str that has parenthesis in it
+return whether the parenthesis are valid
+*/
+
+const str1 = "Y(3(p)p(3)r)s";
+const expected1 = true;
+
+const str2 = "N(0(p)3";
+const expected2 = false;
+// Explanation: not every parenthesis is closed.
+
+const str3 = "N(0)t ) 0(k";
+const expected3 = false;
+// Explanation: because the second ")" is premature: there is nothing open for it to close.
+
+const str4 = "a(b))(c";
+const expected4 = false;
+// Explanation: same number of opens and closes but the 2nd closing closes nothing.
+
+/**
+ * Determines whether the parenthesis in the given string are valid.
+ * Each opening parenthesis must have exactly one closing parenthesis.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {string} str
+ * @returns {boolean} Whether the parenthesis are valid.
+ */
+function parensValid(str) {
+    let truOrFalse = ''
+    let temp = 0
+    let count = 0
+    for (let i = 0; i < str.length; i++) {
+        temp++
+        if (str[i] == "(") {
+            truOrFalse = checker(str, temp)
+            if(!truOrFalse){
+                return false
+            }
+        }
+        if(str[i] == "(" || str[i] == ")" ){
+            count++
+        }
+    }
+    if (count % 2 == 1){
+        return false;
+    }
+    return true
+}
+
+function checker(str, amnt) {
+    for (let j = amnt; j < str.length; j++) {
+        if (str[j] == ")") {
+            return true
+        }
+    }
+return false
+}
+
+console.log(parensValid(str1));
+console.log(parensValid(str2));
+console.log(parensValid(str3));
+console.log(parensValid(str4));
+// *************************************************************
+
+/* 
+Braces Valid
+Given a string sequence of parentheses, braces and brackets, determine whether it is valid. 
+*/
+
+const two_str1 = "W(a{t}s[o(n{ c}o)m]e )h[e{r}e]!";
+const two_expected1 = true;
+
+const two_str2 = "D(i{a}l[ t]o)n{e";
+const two_expected2 = false;
+
+const two_str3 = "A(1)s[O (n]0{t) 0}k";
+const two_expected3 = false;
+
+/**
+ * Determines whether the string's braces, brackets, and parenthesis are valid
+ * based on the order and amount of opening and closing pairs.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {string} str
+ * @returns {boolean} Whether the given strings braces are valid.
+ */
+function bracesValid(str) {
+    let truthyOrFalsy = parensValid(str)
+    if(truthyOrFalsy){
+        return true
+    } else{
+        return false
+    }
+}
+
+
+function parensValid(str) {
+    let truOrFalse = ''
+    let temp = 0
+    let count = 0
+    for (let i = 0; i < str.length; i++) {
+        temp++
+        let valHol = str[i]
+        if (str[i] == "(" || str[i] == "{" || str[i] == "[" ) {
+            truOrFalse = checker(str, temp, valHol)
+            if(!truOrFalse){
+                return false
+            }
+        }
+        if(str[i] == "(" || str[i] == ")" || str[i] == "{" || str[i] == "}" || str[i] == "[" || str[i] == "]"){
+            count++
+        }
+    }
+    if (count % 2 == 1){
+        return false;
+    }
+    return true
+}
+
+function checker(str, amnt, valHol) {
+    let tempstr = ''
+    for (let j = amnt; j < str.length; j++) {
+        tempstr += str[j]
+        if (str[j] == ")" || str[j] == "}" || str[j] == "]") {
+            return true
+            // checkcloser(tempstr)
+        }
+    }
+return false
+}
+function checkcloser(string){
+    
+    for(let i = 0; i < string.length; i++){
+        let valHol = str[i]
+        if(valHol = "(" || "[" || "{"){
+            for(let j = 0; j < string.length; j++){
+
+            }
+        }
+    }
+}
+
+
+console.log(bracesValid(two_str1))
+console.log(bracesValid(two_str2))
+console.log(bracesValid(two_str3))
