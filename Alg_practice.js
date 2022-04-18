@@ -1516,14 +1516,10 @@ const two_expected3 = -1;
     let middle = Math.ceil(nums.length/2);
     let leftcount = 0;
     let rightcount = 0;
-
     for (let i = 0; i<middle-1; i++){
         leftcount += nums[i];
+        rightcount += nums[middle + i]
     }
-    for (let j = middle; j < nums.length; j++){
-        rightcount += nums[j];
-    }
-
     if (leftcount === rightcount){
         return middle-1;
     }
