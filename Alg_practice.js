@@ -1381,3 +1381,156 @@ function isAnagramButBetter(s1,s2){ // tried to make a better verison
 // console.log(isAnagram(two_strA3, two_strB3))
 // console.log(isAnagram(two_strA4, two_strB4))
 console.log(isAnagramButBetter('moon', 'mono'))
+
+
+
+
+
+/* 
+Given an array of ints representing a line of people where the space between
+indexes is 1 foot, with 0 meaning no one is there and 1 meaning someone is in
+that space,
+return whether or not there is at least 6 feet separating every person.
+Bonus: O(n) linear time (avoid nested loops that cause re-visiting indexes).
+*/
+
+const queue1 = [0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1];
+const expected1 = false;
+
+const queue2 = [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1];
+const expected2 = true;
+
+const queue3 = [1, 0, 0, 0, 0, 0, 0, 0, 1];
+const expected3 = true;
+
+const queue4 = [];
+const expected4 = true;
+
+/**
+ * Determines whether each occupied space in the line of people is separated by
+ * 6 empty spaces.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {Array<0|1>} queue
+ * @returns {Boolean}
+ */
+// function socialDistancingEnforcer(queue) {
+//     if(queue.length < 2){
+//         return true
+//     }
+//     let crrntindx = 0
+//     for(let i = 0; i < queue.length; i++){
+//         let count = 0;
+//         crrntindx++;
+//         if (queue[i] == 1){
+//             for(let j = crrntindx ; j < queue.length; j++){
+//                 let arrindx = queue[j]
+//                 if (arrindx != 1 && count < 6){
+//                     count++
+//                 } 
+//                 else if (count == 6){
+//                     break
+//                 } else {
+//                     return false
+//                 }
+//             }
+//         }
+//     }
+// return true;
+// }
+
+function socialDistancingEnforcer(queue) {
+    let count = 0;
+    let leftindex = 0;
+    let rightindex = queue.length-1;
+
+    if (queue.length < 1){
+        return true;
+    }
+
+    for(let i = 0; i < queue.length; i++){
+        if (queue[i] === 1){
+            leftindex = i;
+            break
+        }
+    }
+
+    for(let j = queue.length-1; j >= 0; j-- ){
+        if(queue[j]=== 1){ 
+            rightindex = j;
+            break
+        }
+    }
+
+    for(let k = leftindex+1; k <= rightindex; k++){
+        if(queue[k] == 0){
+            count++;
+        }
+        else if(queue[k] == 1 && count < 6){
+            return false;
+        }
+        else if(queue[k] == 1) {
+            count = 0;
+        }
+    }
+    return true;
+}
+console.log(socialDistancingEnforcer(queue1))
+console.log(socialDistancingEnforcer(queue2))
+console.log(socialDistancingEnforcer(queue3))
+console.log(socialDistancingEnforcer(queue4))
+
+// *******************************************************************
+
+/* 
+  Balance Index
+  Here, a balance point is ON an index, not between indices.
+  Return the balance index where sums are equal on either side
+  (exclude its own value).
+  
+  Return -1 if none exist.
+  
+*/
+
+const two_nums1 = [-2, 5, 7, 0, 3];
+const two_expected1 = 2;
+
+const two_nums2 = [9, 9];
+const two_expected2 = -1;
+
+const two_nums3 = [9, 9, 0, 1];
+const two_expected3 = -1;
+
+/**
+ * Finds the balance index in the given array where the sum to the left of the
+ *    index is equal to the sum to the right of the index.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {Array<number>} nums
+ * @returns {number} The balance index or -1 if there is none.
+ */
+ function balanceIndex(nums) {
+    if (nums.length % 2 === 0){
+        return -1;
+    }
+    let middle = Math.ceil(nums.length/2);
+    let leftcount = 0;
+    let rightcount = 0;
+
+    for (let i = 0; i<middle-1; i++){
+        leftcount += nums[i];
+    }
+    for (let j = middle; j < nums.length; j++){
+        rightcount += nums[j];
+    }
+
+    if (leftcount === rightcount){
+        return middle-1;
+    }
+    else {
+        return -1;
+    }
+}
+console.log(balanceIndex(two_nums1))
+console.log(balanceIndex(two_nums2))
+console.log(balanceIndex(two_nums3))
