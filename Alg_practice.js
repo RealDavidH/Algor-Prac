@@ -1627,29 +1627,24 @@ const expected4 = 4;
  * @param {number} searchNum
  * @returns {boolean} Whether the given num exists in the given array.
  */
-function binarySearch(sortedNums, searchNum) {
-    let middle = (sortedNums.length)/2
+ function binarySearch(sortedNums, searchNum) {
+    let left = 0
+    let right = sortedNums.length - 1
     
-    if (middle % 1 != 0){
-        middle = Math.floor(middle)
-    }
-    
-    if(sortedNums[middle] > searchNum){
-        for(let i = middle; i >= 0; i--){
-            if(sortedNums[i] == searchNum){
-                return true
-            }
+    while (left <= right){
+        let mid = Math.floor((right + left) / 2)
+
+        if (sortedNums[mid] === searchNum){
+            return true
         }
-        
-    } 
-    else if(sortedNums[middle] < searchNum){
-        for(let i = middle; i<sortedNums.length; i++){
-            if(sortedNums[i] == searchNum){
-                return true
-            }
+
+        if (searchNum < sortedNums[mid]){
+            right = mid - 1
+        } else {
+            left = mid + 1
         }
     }
-return false
+    return false
 }
 
 console.log(binarySearch(nums1, searchNum1))
