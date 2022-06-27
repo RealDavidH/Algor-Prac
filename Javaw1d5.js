@@ -5,7 +5,7 @@ class ListNode{
       this.next = null;
     }  
   }
-  
+
   // class SLL - Singly Linked List
   class SLL{
     constructor(){
@@ -150,5 +150,3 @@ class ListNode{
   
   // list1.printList();
   list2.printList();
-  
-  
